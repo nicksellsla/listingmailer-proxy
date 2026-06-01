@@ -72,7 +72,39 @@ app.post('/instantly', async (req, res) => {
       return res.status(r.status).json(d);
     }
 
-    return res.status(400).json({ error: 'Unknown action' });
+    if (action === 'get_replies') {
+      const r = await fetch(BASE + '/emails?campaign_id=' + campId + '&reply=true&limit=100', {
+        method: 'GET', headers
+      });
+      const d = await r.json();
+      return res.status(r.status).json(d);
+    }
+
+    if (action === 'get_all_replies') {
+      const r = await fetch(BASE + '/emails?reply=true&limit=100', {
+        method: 'GET', headers
+      });
+      const d = await r.json();
+      return res.status(r.status).json(d);
+    }
+
+    if (action === 'get_analytics') {
+      const r = await fetch(BASE + '/campaigns/' + campId + '/analytics', {
+        method: 'GET', headers
+      });
+      const d = await r.json();
+      return res.status(r.status).json(d);
+    }
+
+    if (action === 'get_all_campaigns') {
+      const r = await fetch(BASE + '/campaigns?limit=100', {
+        method: 'GET', headers
+      });
+      const d = await r.json();
+      return res.status(r.status).json(d);
+    }
+
+    return res.status(400).json({ error: 'Unknown action: ' + action });
   } catch(err) {
     return res.status(500).json({ error: err.message });
   }
