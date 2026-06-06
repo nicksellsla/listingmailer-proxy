@@ -24,14 +24,14 @@ app.post('/instantly', async (req, res) => {
           email_list: [fromEmail],
           daily_limit: 50,
           stop_on_reply: true,
-          track_opens: true,
-          track_clicks: true,
+          open_tracking: true,
+          link_tracking: true,
           campaign_schedule: {
             schedules: [{
               name: "Daily Schedule",
               timing: { from: "08:00", to: "21:00" },
-              days: { monday: true, tuesday: true, wednesday: true, thursday: true, friday: true, saturday: true, sunday: true },
-              timezone: "America/Los_Angeles"
+              days: { "0": true, "1": true, "2": true, "3": true, "4": true, "5": true, "6": true },
+              timezone: "Etc/GMT+7"
             }]
           },
           sequences: [{
